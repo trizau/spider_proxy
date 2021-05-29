@@ -12,7 +12,8 @@
 | --- | --- | --- |
 | / | protocol?: 协议筛选 | 获取所有代理列表，可指定协议 |
 | /random | protocol?: 协议筛选 | 随机获取一个IP，可指定协议 |
-| /length | | 获取代理数量 |
+| /next | protocol?: 协议筛选 | 获取池中的下一个IP |
+| /length | protocol?: 协议筛选 | 获取代理数量 |
 
 ## 节点开发
 

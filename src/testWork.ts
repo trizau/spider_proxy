@@ -63,15 +63,13 @@ const testWork = {
         let dir = fs.readdirSync(spider_dir);
         for (let spider of dir) {
             spider = spider_dir + '/' + spider;
-            if (!fs.statSync(spider).isFile() || !spider.endsWith('.js')) continue;
+            if (!fs.statSync(spider).isFile() || !spider.endsWith('.js') || spider.startsWith('_')) continue;
             let script = spider;
             import(script).then((s: { default: Function }) => {
                 try {
                     s.default().then((result: any) => {
                         if (result instanceof Array) { // 静态爬取IP
                             workerPool.run(result);
-                        } else if (typeof result === 'object') { // TODO:: 订阅制IP
-
                         }
                     })
                 } catch (e) {
