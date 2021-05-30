@@ -18,7 +18,7 @@ async function test_ip(proxy_address: string, test_address: string = 'https://ww
         timeout: 5000,
     }
     if (proxy_options.protocol.indexOf('socks') !== -1) {
-        proxy_options.type = parseInt(proxy_options.protocol[-1]) || 5;
+        proxy_options.type = parseInt(proxy_options.protocol[proxy_options.protocol.length - 1]) || 5;
         delete proxy_options.protocol;
         agent = new SocksProxyAgent(proxy_options);
     } else {
