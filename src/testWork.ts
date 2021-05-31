@@ -1,7 +1,6 @@
-import WorkerPool from "./utils/WorkerPool";
+import workerPool from "./utils/Pool";
 import path from "path";
 import fs from "fs";
-import * as os from "os";
 import Timeout = NodeJS.Timeout;
 
 __dirname = process.cwd();
@@ -13,10 +12,10 @@ if (!fs.existsSync(runtime_path)) {
 }
 
 // 线程池对象
-let workerPool = new WorkerPool(path.join(__dirname, '/utils/test_ip.js'));
+// let workerPool = new WorkerPool(path.join(__dirname, '/utils/test_ip.js'));
 
 // 记录扫描出的可用的ip
-workerPool.setCallBack((result: { delay: number, address: string }) => {
+workerPool.setCallBack((error: Error, result: { delay: number, address: string }) => {
     // 清理过期IP
     // console.log(result.address)
     let exists_key = testWork.valid.indexOf(result.address);
@@ -31,7 +30,7 @@ workerPool.setCallBack((result: { delay: number, address: string }) => {
 });
 
 // 线程池任务
-workerPool.setFinishCallback(() => {
+workerPool.setFinishCallBack(() => {
     clearInterval(<Timeout>testWork.pending);
     if (typeof testWork.finishCallback === 'function') testWork.finishCallback();
 });
@@ -69,7 +68,7 @@ const testWork = {
                 try {
                     s.default().then((result: any) => {
                         if (result instanceof Array) { // 静态爬取IP
-                            workerPool.run(result);
+                            workerPool.append(result);
                         }
                     })
                 } catch (e) {
@@ -80,11 +79,11 @@ const testWork = {
     },
     // 自测
     selfTest() {
-        workerPool.run(this.valid);
+        workerPool.append(this.valid);
     },
     // 当前线程池中是否正在检测
     isRun(): boolean {
-        return !!workerPool.getActive();
+        return workerPool.isRun();
     }
 }
 try {

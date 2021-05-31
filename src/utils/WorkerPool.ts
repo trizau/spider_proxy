@@ -1,3 +1,4 @@
+// Oh, shit, 这里的全是没用的东西！
 const {Worker} = require("worker_threads");
 const fs = require("fs")
 const os = require("os")
@@ -43,7 +44,7 @@ class WorkerPool {
                     if (typeof cb === 'function') {
                         cb(result);
                     }
-                    // this.works[theadId].terminate();
+                    this.works[theadId].terminate();
                 }); // 线程执行完成后发起ipc进行返回处理结果
 
                 work.once('error', (err: Error) => {

@@ -5,7 +5,7 @@
     "license": "MIT",
     "bin": "src/index.js",
     "scripts": {
-        "start": "tsc -w",
+        "watch": "tsc -w",
         "package:win": "npx javascript-obfuscator --split-strings=true --string-array=true --string-array-encoding=rc4 --target=node src -o dist/win && pkg . -t node14-win-x64 --out-path dist/win && cp package.json dist/win/ && cd dist/win && yarn --production",
         "package:mac": "npx javascript-obfuscator --split-strings=true --string-array=true --string-array-encoding=rc4 --target=node src -o dist/mac && pkg . -t node14-mac-arm64 --out-path dist/mac && cp package.json dist/mac/ && cd dist/mac && yarn --production",
         "package:linux": "npx javascript-obfuscator --split-strings=true --string-array=true --string-array-encoding=rc4 --target=node src -o dist/linux && pkg . -t node14-linux-x64 --out-path dist/linux && cp package.json dist/linux/ && cd dist/linux && yarn --production",

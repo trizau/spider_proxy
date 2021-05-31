@@ -1,7 +1,3 @@
-import axios from "axios";
-import {HttpsProxyAgent} from "https-proxy-agent";
-import * as cheerio from "cheerio";
-
 async function spys() {
     return [
         'http://24.245.100.212:48678',
