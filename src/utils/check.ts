@@ -13,7 +13,7 @@ async function test_ip(proxy_address: string, test_address: string = 'https://ww
         let agent;
         let proxy_options: any = proxy_address.split('://');
         proxy_options = {
-            protocol: 'http', // proxy_options[0], https下不知道怎么回事
+            protocol: proxy_options[0],
             host: proxy_options[1].split(':')[0],
             port: proxy_options[1].split(':')[1],
             timeout: 5000,
@@ -47,22 +47,23 @@ async function test_ip(proxy_address: string, test_address: string = 'https://ww
 }
 
 async function check(address: string) {
-    let test_address = [
-        'https://www.google.com',
-        'https://api.github.com',
-        'https://www.amazon.com',
-        'https://ip-api.com',
-        'https://www.youtube.com',
-        'https://www.facebook.com',
-        'https://twitter.com',
-        'https://www.instagram.com',
-        'https://www.tumblr.com',
-        'https://www.pinterest.com',
-        'https://www.whatsapp.com',
-        'https://telegram.org',
-    ];
-    let index = Math.floor(Math.random() * test_address.length);
-    let delay = await test_ip(address, test_address[index]);
+    // let test_address = [
+    //     'https://www.google.com',
+    //     'https://api.github.com',
+    //     'https://www.amazon.com',
+    //     'https://ip-api.com',
+    //     'https://www.youtube.com',
+    //     'https://www.facebook.com',
+    //     'https://twitter.com',
+    //     'https://www.instagram.com',
+    //     'https://www.tumblr.com',
+    //     'https://www.pinterest.com',
+    //     'https://www.whatsapp.com',
+    //     'https://telegram.org',
+    // ];
+    // let index = Math.floor(Math.random() * test_address.length);
+    // let delay = await test_ip(address, test_address[index]);
+    let delay = await test_ip(address, 'http://ip-api.com/json');
     return {
         delay,
         address
